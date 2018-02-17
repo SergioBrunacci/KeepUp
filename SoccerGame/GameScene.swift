@@ -41,25 +41,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
+        addSpinnyNode(pos, SKColor.green)
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+        addSpinnyNode(pos, SKColor.blue)
     }
     
     func touchUp(atPoint pos : CGPoint) {
+        addSpinnyNode(pos, SKColor.red)
+    }
+    
+    private func addSpinnyNode(_ pos: CGPoint, _ color: SKColor) {
         if let n = self.spinnyNode?.copy() as! SKShapeNode? {
             n.position = pos
-            n.strokeColor = SKColor.red
+            n.strokeColor = color
+            n.zPosition = 1
             self.addChild(n)
         }
     }
