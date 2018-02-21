@@ -1,14 +1,21 @@
 import SpriteKit
 import GameplayKit
 
+let screenSize = UIScreen.main.bounds
+var screenWidth: CGFloat?
+var screenHeight: CGFloat?
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     private var ball : SKLabelNode?
     private var score : Int = 0
+    private var goalKeeper : GoalKeeper?
     
     override func didMove(to view: SKView) {
+        screenWidth = frame.width
+        screenHeight = frame.height
         
         self.ball = self.childNode(withName: "ball") as? SKLabelNode
         if let ball = self.ball {
@@ -37,6 +44,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
         }
+        
+        let easyVelocity: CGFloat = 5.0
+        self.goalKeeper = GoalKeeper(Velocity: easyVelocity)
+        self.addChild(self.goalKeeper!)
     }
     
     
@@ -108,6 +119,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        self.goalKeeper?.Update()
+        
+        //CollisionManager.CheckCollision(scene: self, object1: ball, object2: goalKeeper)
     }
 }

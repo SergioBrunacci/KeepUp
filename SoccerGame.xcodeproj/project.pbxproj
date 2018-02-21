@@ -15,6 +15,11 @@
 		1B742D891ED1D9E4002CEEA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B742D871ED1D9E4002CEEA0 /* Main.storyboard */; };
 		1B742D8B1ED1D9E4002CEEA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B742D8A1ED1D9E4002CEEA0 /* Assets.xcassets */; };
 		1B742D8E1ED1D9E4002CEEA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B742D8C1ED1D9E4002CEEA0 /* LaunchScreen.storyboard */; };
+		3FA997A7203CEA38009CCC42 /* GoalKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997A6203CEA38009CCC42 /* GoalKeeper.swift */; };
+		3FA997A9203CEA79009CCC42 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997A8203CEA79009CCC42 /* GameObject.swift */; };
+		3FA997AB203CEB29009CCC42 /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997AA203CEB29009CCC42 /* GameProtocol.swift */; };
+		3FA997B0203CF64C009CCC42 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997AF203CF64C009CCC42 /* CollisionManager.swift */; };
+		3FA997B2203CF67F009CCC42 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997B1203CF67F009CCC42 /* Distance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +33,11 @@
 		1B742D8A1ED1D9E4002CEEA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B742D8D1ED1D9E4002CEEA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B742D8F1ED1D9E4002CEEA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FA997A6203CEA38009CCC42 /* GoalKeeper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalKeeper.swift; sourceTree = "<group>"; };
+		3FA997A8203CEA79009CCC42 /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		3FA997AA203CEB29009CCC42 /* GameProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
+		3FA997AF203CF64C009CCC42 /* CollisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
+		3FA997B1203CF67F009CCC42 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +70,8 @@
 		1B742D7C1ED1D9E4002CEEA0 /* SoccerGame */ = {
 			isa = PBXGroup;
 			children = (
+				3FA997AE203CF63D009CCC42 /* Managers */,
+				3FA997A5203CE9E1009CCC42 /* Objects */,
 				1B742D7D1ED1D9E4002CEEA0 /* AppDelegate.swift */,
 				1B742D811ED1D9E4002CEEA0 /* Actions.sks */,
 				1B742D7F1ED1D9E4002CEEA0 /* GameScene.sks */,
@@ -71,6 +83,25 @@
 				1B742D8F1ED1D9E4002CEEA0 /* Info.plist */,
 			);
 			path = SoccerGame;
+			sourceTree = "<group>";
+		};
+		3FA997A5203CE9E1009CCC42 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				3FA997A6203CEA38009CCC42 /* GoalKeeper.swift */,
+				3FA997A8203CEA79009CCC42 /* GameObject.swift */,
+				3FA997AA203CEB29009CCC42 /* GameProtocol.swift */,
+				3FA997B1203CF67F009CCC42 /* Distance.swift */,
+			);
+			name = Objects;
+			sourceTree = "<group>";
+		};
+		3FA997AE203CF63D009CCC42 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				3FA997AF203CF64C009CCC42 /* CollisionManager.swift */,
+			);
+			name = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,7 +181,12 @@
 			files = (
 				1B742D841ED1D9E4002CEEA0 /* GameScene.swift in Sources */,
 				1B742D861ED1D9E4002CEEA0 /* GameViewController.swift in Sources */,
+				3FA997B0203CF64C009CCC42 /* CollisionManager.swift in Sources */,
+				3FA997A7203CEA38009CCC42 /* GoalKeeper.swift in Sources */,
+				3FA997B2203CF67F009CCC42 /* Distance.swift in Sources */,
 				1B742D7E1ED1D9E4002CEEA0 /* AppDelegate.swift in Sources */,
+				3FA997A9203CEA79009CCC42 /* GameObject.swift in Sources */,
+				3FA997AB203CEB29009CCC42 /* GameProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
