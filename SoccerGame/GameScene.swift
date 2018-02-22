@@ -46,7 +46,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let easyVelocity: CGFloat = 5.0
-        self.goalKeeper = GoalKeeper(Velocity: easyVelocity)
+        let mediumVelocity: CGFloat = 15.0
+        self.goalKeeper = GoalKeeper(Velocity: mediumVelocity)
         self.addChild(self.goalKeeper!)
     }
     

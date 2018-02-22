@@ -10,7 +10,7 @@ class GoalKeeper: GameObject {
     init(Velocity velocity: CGFloat) {
         self.velocity = velocity
         self.direction = 1.0
-        self.distanceFromGoal = 0
+        self.distanceFromGoal = 100.0
         
         super.init(imageString: "goalkeeper", initialScale: 1.0)
         
@@ -23,8 +23,8 @@ class GoalKeeper: GameObject {
     
     override func CheckBounds() {
         // right boundary
-        if(self.position.x > screenSize.width - self.halfwidth!) {
-            self.position.x = screenSize.width - self.halfwidth!
+        if(self.position.x > screenWidth! - self.halfwidth!) {
+            self.position.x = screenWidth! - self.halfwidth!
             self.changeDirection()
         }
         
@@ -36,7 +36,9 @@ class GoalKeeper: GameObject {
     }
     
     override func Start() {
-        self.position = CGPoint(x: self.halfwidth!, y: screenHeight! - self.halfheight! + self.distanceFromGoal! )
+        // swift3.0 bugfix
+        let startingY: CGFloat = CGFloat((screenHeight!) - CGFloat(self.halfheight!)) - (self.distanceFromGoal!)
+        self.position = CGPoint(x: self.halfwidth!, y: startingY )
         self.zPosition = 2
     }
     
