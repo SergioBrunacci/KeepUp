@@ -34,7 +34,7 @@ class GoalKeeper: GameObject {
     }
     
     override func Start() {
-        self.position = CGPoint(x: self.halfwidth!, y: 50.0)
+        self.position = CGPoint(x: 0, y: 0)
         self.zPosition = 2
     }
     
