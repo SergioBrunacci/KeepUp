@@ -39,7 +39,7 @@ class GoalKeeper: GameObject {
         // swift3.0 bugfix
         let startingY: CGFloat = CGFloat((screenHeight!) - CGFloat(self.halfheight!)) - (self.distanceFromGoal!)
         self.position = CGPoint(x: self.halfwidth!, y: startingY )
-        self.zPosition = 2
+        self.zPosition = 3
     }
     
     override func Update() {

@@ -22,7 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.fontSize/2)
             ball.physicsBody?.contactTestBitMask=1
         }
-        
+        self.ball?.zPosition = 2
         
         self.physicsWorld.contactDelegate = self
         // Get label node from scene and store it for use later
