@@ -5,12 +5,14 @@ class GoalKeeper: GameObject {
     var velocity: CGFloat?
     var direction: CGFloat?
     var distanceFromGoal: CGFloat?
+    var fieldBorderHeight: CGFloat?
     
     // constructor
     init(Velocity velocity: CGFloat) {
         self.velocity = velocity
         self.direction = 1.0
-        self.distanceFromGoal = 100.0
+        self.fieldBorderHeight = 63.0
+        self.distanceFromGoal = 40.0
         
         super.init(imageString: "goalkeeper", initialScale: 1.0)
         
@@ -37,7 +39,8 @@ class GoalKeeper: GameObject {
     
     override func Start() {
         // swift3.0 bugfix
-        let startingY: CGFloat = CGFloat((screenHeight!) - CGFloat(self.halfheight!)) - (self.distanceFromGoal!)
+        let startingY: CGFloat = CGFloat((screenHeight!) - CGFloat(self.halfheight!)) -
+            CGFloat((self.distanceFromGoal!) + (self.fieldBorderHeight!))
         self.position = CGPoint(x: self.halfwidth!, y: startingY )
         self.zPosition = 3
     }
