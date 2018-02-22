@@ -4,11 +4,13 @@ class GoalKeeper: GameObject {
     
     var velocity: CGFloat?
     var direction: CGFloat?
+    var distanceFromGoal: CGFloat?
     
     // constructor
     init(Velocity velocity: CGFloat) {
         self.velocity = velocity
         self.direction = 1.0
+        self.distanceFromGoal = 0
         
         super.init(imageString: "goalkeeper", initialScale: 1.0)
         
@@ -34,7 +36,7 @@ class GoalKeeper: GameObject {
     }
     
     override func Start() {
-        self.position = CGPoint(x: 0, y: 0)
+        self.position = CGPoint(x: self.halfwidth!, y: screenHeight! - self.halfheight! + self.distanceFromGoal! )
         self.zPosition = 2
     }
     
