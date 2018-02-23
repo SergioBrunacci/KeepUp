@@ -20,6 +20,7 @@
 		3FA997AB203CEB29009CCC42 /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997AA203CEB29009CCC42 /* GameProtocol.swift */; };
 		3FA997B0203CF64C009CCC42 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997AF203CF64C009CCC42 /* CollisionManager.swift */; };
 		3FA997B2203CF67F009CCC42 /* Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA997B1203CF67F009CCC42 /* Distance.swift */; };
+		3FE24B27203F944000A01BC6 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE24B26203F944000A01BC6 /* Ball.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		3FA997AA203CEB29009CCC42 /* GameProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
 		3FA997AF203CF64C009CCC42 /* CollisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
 		3FA997B1203CF67F009CCC42 /* Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Distance.swift; sourceTree = "<group>"; };
+		3FE24B26203F944000A01BC6 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				3FA997A8203CEA79009CCC42 /* GameObject.swift */,
 				3FA997AA203CEB29009CCC42 /* GameProtocol.swift */,
 				3FA997B1203CF67F009CCC42 /* Distance.swift */,
+				3FE24B26203F944000A01BC6 /* Ball.swift */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				3FA997A7203CEA38009CCC42 /* GoalKeeper.swift in Sources */,
 				3FA997B2203CF67F009CCC42 /* Distance.swift in Sources */,
 				1B742D7E1ED1D9E4002CEEA0 /* AppDelegate.swift in Sources */,
+				3FE24B27203F944000A01BC6 /* Ball.swift in Sources */,
 				3FA997A9203CEA79009CCC42 /* GameObject.swift in Sources */,
 				3FA997AB203CEB29009CCC42 /* GameProtocol.swift in Sources */,
 			);
