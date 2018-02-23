@@ -138,6 +138,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let diffX = (self.goalKeeper?.position.x)! - (ball?.frame.origin.x)! - (ball?.frame.size.width)!/2
         // let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
         ball?.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: -1000))
+        //ball?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
     }
     
     override func update(_ currentTime: TimeInterval) {
