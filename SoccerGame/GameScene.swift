@@ -78,6 +78,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let ball = self.ball {
             for t in touches {
                 let location  = t.location(in: self)
+
                 if ball.contains(location) {
                     score += 1
                     let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
@@ -109,6 +110,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         guard contact.bodyA.node?.name == "ground" || contact.bodyB.node?.name == "ground" else {
+            if (contact.bodyA.node?.name == "goalkeeper") {
+                keeperCatched(contact.bodyB.node!)
+            }
+            if (contact.bodyB.node?.name == "goalkeeper") {
+                keeperCatched(contact.bodyA.node!)
+            }
             return
         }
         score = 0
@@ -117,6 +124,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             label.text = "\(score)"
         }
 
+    }
+    
+    func keeperCatched( _ node: SKNode) {
+        //print("catched \(node.name)")
+        if (node.name == "ball") {
+            keeperCatchedBall()
+        }
+    }
+    
+    func keeperCatchedBall() {
+        print("Gotcha!")
+        let diffX = (self.goalKeeper?.position.x)! - (ball?.frame.origin.x)! - (ball?.frame.size.width)!/2
+        // let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
+        ball?.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: -1000))
     }
     
     override func update(_ currentTime: TimeInterval) {

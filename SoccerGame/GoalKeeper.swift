@@ -15,7 +15,7 @@ class GoalKeeper: GameObject {
         self.distanceFromGoal = 40.0
         
         super.init(imageString: "goalkeeper", initialScale: 1.0)
-        
+
         Start()
     }
     
@@ -43,16 +43,41 @@ class GoalKeeper: GameObject {
             CGFloat((self.distanceFromGoal!) + (self.fieldBorderHeight!))
         self.position = CGPoint(x: self.halfwidth!, y: startingY )
         self.zPosition = 3
+        setPhysics()
     }
+    
+    func setPhysics() {
+        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody?.isDynamic = false
+        self.physicsBody?.contactTestBitMask = (self.physicsBody?.collisionBitMask)!
+    }
+    
+    func ballCollision() {
+        
+        
+    }
+    
+    /*
+    func setPhysics() {
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        physicsBody!.usesPreciseCollisionDetection = true
+        //physicsBody!.categoryBitMask = PhysicsCategory.Edge
+        physicsBody!.friction = 0
+        physicsBody!.restitution = 1
+        physicsBody!.angularDamping = 0
+        physicsBody!.linearDamping = 0
+        self.physicsBody?.isDynamic = false
+    }*/
     
     override func Update() {
         self.moveTick()
         self.CheckBounds()
     }
     
+    /*
     func TouchMove(newPos: CGPoint) {
         self.position = newPos
-    }
+    }*/
     
     func changeDirection() {
         self.direction = self.direction! * CGFloat(-1.0)
