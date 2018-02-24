@@ -47,6 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //let easyVelocity: CGFloat = 5.0
         let mediumVelocity: CGFloat = 15.0
         self.goalKeeper = GoalKeeper(Velocity: mediumVelocity)
+        
         //self.addChild(self.goalKeeper!)
         
         self.goal = Goal()
@@ -139,16 +140,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func scoredAGoal() {
+    func displayGoalLabel() {
         print("Goal!")
-        label?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+
         label?.text = "GOAL!"
+        label?.alpha = 1.0
+        let pulse = SKAction.init(named: "Pulse")
+        let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
         
+        let sequence = SKAction.sequence([pulse!, fade])
+        self.label?.run(sequence)
+    }
+    
+    func scoredAGoal() {
+        self.displayGoalLabel()
+        self.replaceBall()
+    }
+    
+    func replaceBall() {
         self.ball?.destroy()
         self.ball = Ball()
         self.addChild(self.ball!)
-        
-        //self.ball?.position = CGPoint(x: 500.0, y: 400.0 )
     }
     
     func keeperCatched( _ node: SKNode) {

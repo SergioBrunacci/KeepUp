@@ -49,6 +49,7 @@ class Ball : SKLabelNode { //: GameObject
     
     func destroy() {
         self.physicsBody?.isDynamic = false
+        self.physicsBody?.contactTestBitMask = 0
         //self.run(SKAction.init(named: "Pulse")!, withKey: "fadeOut")//, completion: self.removeFromParent)
         //let pulse = SKAction.init(named: "Pulse")
         let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)

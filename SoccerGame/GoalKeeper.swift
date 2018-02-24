@@ -12,7 +12,7 @@ class GoalKeeper: GameObject {
         self.velocity = velocity
         self.direction = 1.0
         self.fieldBorderHeight = 63.0
-        self.distanceFromGoal = 40.0
+        self.distanceFromGoal = 60.0
         
         super.init(imageString: "goalkeeper", initialScale: 1.0)
 
