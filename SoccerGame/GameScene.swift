@@ -8,9 +8,11 @@ var screenHeight: CGFloat?
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var label : SKLabelNode?
+    private var lblGoal : UILabel?
     private var spinnyNode : SKShapeNode?
     private var ball : SKLabelNode?
     private var score : Int = 0
+    private var goal : Int = 0
     private var goalKeeper : GoalKeeper?
     
     override func didMove(to view: SKView) {
@@ -74,7 +76,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         if let ball = self.ball {
             for t in touches {
                 let location  = t.location(in: self)
@@ -84,6 +85,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
                     print(diffX)
                     ball.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: 1000))
+             
+        //        if ((self.goalKeeper?.position.y)! < (ball.frame.origin.y + ball.frame.size.width/2))  {
+                    if ((self.goalKeeper?.position.y)! < (location.y + ball.frame.size.width/2))  {
+                        print("Goooaaalll", goal)
+                        goal += 1
+                        label?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+                        label?.text = "\(goal)"
+                    }
                 }
             }
         }
@@ -130,6 +139,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //print("catched \(node.name)")
         if (node.name == "ball") {
             keeperCatchedBall()
+        } else {
+            keeperMissedBall()
         }
     }
     
@@ -140,7 +151,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ball?.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: -1000))
         //ball?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
     }
-    
+
+    func keeperMissedBall() {
+//        if ((self.goalKeeper?.position.y)! < (ball?.frame.origin.y)! + 50)  {
+//            print("Goooaaalll")
+//            goal += 1
+//            label?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+//            label?.text = "GOOOOOAAAAALLLL!!!!"
+//        }
+
+        //print("Goooaaalll!")
+//        let diffX = (self.goalKeeper?.position.x)! - (ball?.frame.origin.x)! - (ball?.frame.size.width)!/2
+        // let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
+//        ball?.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: -1000))
+        //ball?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+    }
+
     override func update(_ currentTime: TimeInterval) {
         self.goalKeeper?.Update()
         
