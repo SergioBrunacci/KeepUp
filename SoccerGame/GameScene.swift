@@ -47,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //let easyVelocity: CGFloat = 5.0
         let mediumVelocity: CGFloat = 15.0
         self.goalKeeper = GoalKeeper(Velocity: mediumVelocity)
-        self.addChild(self.goalKeeper!)
+        //self.addChild(self.goalKeeper!)
         
         self.goal = Goal()
         self.addChild(self.goal!)
@@ -111,6 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        print("collision: " + (contact.bodyA.node?.name)! + " with " + (contact.bodyB.node?.name)! )
         if (contact.bodyA.node?.name == "ball") {
             self.ballHit(contact.bodyB.node!)
         }
@@ -143,7 +144,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         label?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         label?.text = "GOAL!"
         
-        self.ball?.position = CGPoint(x: 500.0, y: 400.0 )
+        self.ball?.destroy()
+        self.ball = Ball()
+        self.addChild(self.ball!)
+        
+        //self.ball?.position = CGPoint(x: 500.0, y: 400.0 )
     }
     
     func keeperCatched( _ node: SKNode) {
@@ -158,7 +163,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let diffX = (self.goalKeeper?.position.x)! - (ball?.frame.origin.x)! - (ball?.frame.size.width)!/2
         // let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
         ball?.pushDown((self.goalKeeper?.position)!)
-        ball?.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: -1000))
         //ball?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
     }
     

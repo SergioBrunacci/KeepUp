@@ -39,12 +39,22 @@ class Ball : SKLabelNode { //: GameObject
         self.applyImpulse(p, 1.0)
     }
     
-    private func applyImpulse(_ p: CGPoint, _ direction: CGFloat) {
+    private func applyImpulse(_ p: CGPoint, _ ydirection: CGFloat) {
         let diffX = p.x - self.frame.origin.x - self.frame.size.width/2
         let xC: CGFloat = -2
-        let yC: CGFloat = 70
-        self.physicsBody?.applyImpulse(CGVector(dx: xC * diffX, dy: direction * yC))
+        let yC: CGFloat = 70 * ydirection
+        self.physicsBody?.applyImpulse(CGVector(dx: xC * diffX, dy: yC))
         print(diffX)
+    }
+    
+    func destroy() {
+        self.physicsBody?.isDynamic = false
+        //self.run(SKAction.init(named: "Pulse")!, withKey: "fadeOut")//, completion: self.removeFromParent)
+        //let pulse = SKAction.init(named: "Pulse")
+        let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
+        let removeFromParent = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([fade, removeFromParent])
+        self.run(sequence)
     }
     
     func ballHit(_ p: CGPoint) -> Bool {
