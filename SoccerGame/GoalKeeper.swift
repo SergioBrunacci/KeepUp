@@ -19,6 +19,15 @@ class GoalKeeper: GameObject {
         Start()
     }
     
+    override func Start() {
+        // swift3.0 bugfix
+        let startingY: CGFloat = CGFloat((screenHeight!) - CGFloat(self.halfheight!)) -
+            CGFloat((self.distanceFromGoal!) + (self.fieldBorderHeight!))
+        self.position = CGPoint(x: self.halfwidth!, y: startingY )
+        self.zPosition = 3
+        setPhysics()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,15 +44,6 @@ class GoalKeeper: GameObject {
             self.position.x = self.halfwidth!
             self.changeDirection()
         }
-    }
-    
-    override func Start() {
-        // swift3.0 bugfix
-        let startingY: CGFloat = CGFloat((screenHeight!) - CGFloat(self.halfheight!)) -
-            CGFloat((self.distanceFromGoal!) + (self.fieldBorderHeight!))
-        self.position = CGPoint(x: self.halfwidth!, y: startingY )
-        self.zPosition = 3
-        setPhysics()
     }
     
     func setPhysics() {

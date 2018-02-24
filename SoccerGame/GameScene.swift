@@ -29,6 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             label.text = "Hit the Ball!"
             label.run(SKAction.fadeOut(withDuration: 3.0))
         }
+        self.label?.zPosition = 5.0
         
         
         // Create shape node to use during mouse interaction
@@ -48,7 +49,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let mediumVelocity: CGFloat = 15.0
         self.goalKeeper = GoalKeeper(Velocity: mediumVelocity)
         
-        //self.addChild(self.goalKeeper!)
+        self.addChild(self.goalKeeper!)
         
         self.goal = Goal()
         self.addChild(self.goal!)
@@ -147,12 +148,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         label?.alpha = 1.0
         let pulse = SKAction.init(named: "Pulse")
         let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
+        //let show = SKAction.fadeAlpha(to: 1.0, duration: 0.0)
+        let changeLabel = SKAction.run {
+            self.label?.text = "Score: \(self.score)"
+        }
         
-        let sequence = SKAction.sequence([pulse!, fade])
+        let sequence = SKAction.sequence([pulse!, fade, changeLabel, pulse!, fade])
         self.label?.run(sequence)
     }
     
     func scoredAGoal() {
+        score = score + 1;
         self.displayGoalLabel()
         self.replaceBall()
     }
@@ -163,12 +169,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(self.ball!)
     }
     
+    /*
     func keeperCatched( _ node: SKNode) {
         //print("catched \(node.name)")
         if (node.name == "ball") {
             keeperCatchedBall()
         }
-    }
+    }*/
     
     func keeperCatchedBall() {
         print("Gotcha!")
