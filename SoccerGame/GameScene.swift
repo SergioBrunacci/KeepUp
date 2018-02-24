@@ -12,6 +12,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var ball : SKLabelNode?
     private var score : Int = 0
     private var goalKeeper : GoalKeeper?
+    private var goal : Goal?
     
     override func didMove(to view: SKView) {
         screenWidth = frame.width
@@ -49,6 +50,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let mediumVelocity: CGFloat = 15.0
         self.goalKeeper = GoalKeeper(Velocity: mediumVelocity)
         self.addChild(self.goalKeeper!)
+        
+        self.goal = Goal()
+        self.addChild(self.goal!)
     }
     
     
@@ -109,21 +113,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        guard contact.bodyA.node?.name == "ground" || contact.bodyB.node?.name == "ground" else {
-            if (contact.bodyA.node?.name == "goalkeeper") {
-                keeperCatched(contact.bodyB.node!)
-            }
-            if (contact.bodyB.node?.name == "goalkeeper") {
-                keeperCatched(contact.bodyA.node!)
-            }
-            return
+        if (contact.bodyA.node?.name == "ball") {
+            ballHit(contact.bodyB.node!)
         }
-        score = 0
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-            label.text = "\(score)"
+        
+        if (contact.bodyB.node?.name == "ball") {
+            ballHit(contact.bodyA.node!)
         }
-
+    }
+    
+    func ballHit(_ node: SKNode) {
+        if (node.name == "goalkeeper") {
+            keeperCatchedBall()
+        }
+        else if (node.name == "goal") {
+            scoredAGoal()
+        }
+        else if (node.name == "ground") {
+            score = 0
+            if let label = self.label {
+                label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+                label.text = "\(score)"
+            }
+        }
+    }
+    
+    func scoredAGoal() {
+        print("Goal!")
+        label?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        label?.text = "GOAL!"
     }
     
     func keeperCatched( _ node: SKNode) {
