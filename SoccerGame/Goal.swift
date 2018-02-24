@@ -8,6 +8,7 @@ class Goal : SKLabelNode {
         self.text = ""
         //self.color = SKColor.red
         self.alpha = 0.0
+        // set this point to goal's center
         self.position = goalCenter()
         
         setPhysics()
@@ -17,6 +18,7 @@ class Goal : SKLabelNode {
         
     }
     
+    // return goal's center point
     func goalCenter() -> CGPoint {
         let distanceFromTop: CGFloat = 140.0
         let centerx: CGFloat = 375.0
@@ -24,6 +26,8 @@ class Goal : SKLabelNode {
         return CGPoint(x: centerx, y: centery )
     }
     
+    // apply collision to goal
+    // so we can check if ball entered
     func setPhysics() {
         self.physicsBody = SKPhysicsBody(circleOfRadius: 1)
         self.physicsBody?.contactTestBitMask = (self.physicsBody?.collisionBitMask)!
@@ -34,20 +38,5 @@ class Goal : SKLabelNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func checkPointCollision(_ p: CGPoint) -> Bool {
-        return super.contains(p)
-    }
-    
-    func ballHit(_ p: CGPoint) -> Bool {
-        if checkPointCollision(p) {
-            //score += 1
-            let diffX = p.x - self.frame.origin.x - self.frame.size.width/2
-            print(diffX)
-            self.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: 1000))
-            return true
-        }
-        return false
     }
 }

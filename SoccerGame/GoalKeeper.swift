@@ -32,6 +32,8 @@ class GoalKeeper: GameObject {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // check to see if goalkeeper is going outside the field
+    // and change direction if so
     override func CheckBounds() {
         // right boundary
         if(self.position.x > screenWidth! - self.halfwidth!) {
@@ -46,43 +48,26 @@ class GoalKeeper: GameObject {
         }
     }
     
+    // apply physics to goalkeeper
     func setPhysics() {
+        // rectangular body
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        // do no react to collisions
         self.physicsBody?.isDynamic = false
+        // apply collision
         self.physicsBody?.contactTestBitMask = (self.physicsBody?.collisionBitMask)!
     }
-    
-    func ballCollision() {
-        
-        
-    }
-    
-    /*
-    func setPhysics() {
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        physicsBody!.usesPreciseCollisionDetection = true
-        //physicsBody!.categoryBitMask = PhysicsCategory.Edge
-        physicsBody!.friction = 0
-        physicsBody!.restitution = 1
-        physicsBody!.angularDamping = 0
-        physicsBody!.linearDamping = 0
-        self.physicsBody?.isDynamic = false
-    }*/
     
     override func Update() {
         self.moveTick()
         self.CheckBounds()
     }
     
-    /*
-    func TouchMove(newPos: CGPoint) {
-        self.position = newPos
-    }*/
-    
     func changeDirection() {
         self.direction = self.direction! * CGFloat(-1.0)
     }
     
+    // move goalkeeper
     func moveTick() {
         self.position = CGPoint(x: self.position.x + ( self.direction! * self.velocity!), y: self.position.y)
     }

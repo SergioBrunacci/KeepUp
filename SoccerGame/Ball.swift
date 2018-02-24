@@ -5,7 +5,9 @@ class Ball : SKLabelNode { //: GameObject
     override init() {
         super.init()
         self.name = "ball"
+        // apply a circle body to ball
         self.physicsBody = SKPhysicsBody(circleOfRadius: self.fontSize/2)
+        // apply collision
         self.physicsBody?.contactTestBitMask = 1//(self.physicsBody?.collisionBitMask)!
         self.zPosition = 4
         
@@ -13,11 +15,11 @@ class Ball : SKLabelNode { //: GameObject
         self.fontSize = 150.0
         self.text = "⚽️"
         self.physicsBody?.affectedByGravity = true
-        //self.physicsWorld.gravity = CGVectorMake(0.0, -9.8);
         self.position = CGPoint(x: 500.0, y:450.0)
+        
+        // center ball text with body center
         self.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         self.verticalAlignmentMode   = SKLabelVerticalAlignmentMode.center
-        //self.physicsBody?.allowsRotation = false
     }
     
     func start() {
@@ -39,6 +41,7 @@ class Ball : SKLabelNode { //: GameObject
         self.applyImpulse(p, 1.0)
     }
     
+    // apply a force vector to ball
     private func applyImpulse(_ p: CGPoint, _ ydirection: CGFloat) {
         let diffX = p.x - self.frame.origin.x - self.frame.size.width/2
         let xC: CGFloat = -2
@@ -47,22 +50,26 @@ class Ball : SKLabelNode { //: GameObject
         print(diffX)
     }
     
+    // destroy ball
+    // applying freeze and fade effect
     func destroy() {
+        // do not react anymore to physics
         self.physicsBody?.isDynamic = false
+        // do not collide
         self.physicsBody?.contactTestBitMask = 0
-        //self.run(SKAction.init(named: "Pulse")!, withKey: "fadeOut")//, completion: self.removeFromParent)
-        //let pulse = SKAction.init(named: "Pulse")
         let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
         let removeFromParent = SKAction.removeFromParent()
         let sequence = SKAction.sequence([fade, removeFromParent])
         self.run(sequence)
     }
     
-    func ballHit(_ p: CGPoint) -> Bool {
+    // check if ball collided with point p
+    // and push it if so
+    func ballHit(_ p: CGPoint) {
         if checkPointCollision(p) {
             self.applyImpulse(p, 1.0)
-            return true
+            //return true
         }
-        return false
+        //return false
     }
 }

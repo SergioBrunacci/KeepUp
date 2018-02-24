@@ -39,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let spinnyNode = self.spinnyNode {
             spinnyNode.lineWidth = 2.5
             
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
+            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
             spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
                                               SKAction.fadeOut(withDuration: 0.5),
                                               SKAction.removeFromParent()]))
@@ -79,23 +79,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
-        
-        //if let ball = self.ball {
-            for t in touches {
-                let location  = t.location(in: self)
-                if (self.ball?.ballHit(location))! {
-                    // score += 1
-                }
-            }
-        //}
-        
-        /*
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-            label.text = "\(score)"
+        for t in touches {
+            let location  = t.location(in: self)
+            self.ball?.ballHit(location)
         }
-        */
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
@@ -112,6 +99,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
+    // function called anytime a collision happens
+    // between nodes configured to do so
     func didBegin(_ contact: SKPhysicsContact) {
         print("collision: " + (contact.bodyA.node?.name)! + " with " + (contact.bodyB.node?.name)! )
         if (contact.bodyA.node?.name == "ball") {
@@ -123,6 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    // ball collided with parameter node
     func ballHit(_ node: SKNode) {
         if (node.name == "goalkeeper") {
             keeperCatchedBall()
@@ -131,13 +121,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scoredAGoal()
         }
         else if (node.name == "ground") {
-            /*
-            score = 0
-            if let label = self.label {
-                label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-                label.text = "\(score)"
-            }
-            */
         }
     }
     
@@ -163,26 +146,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.replaceBall()
     }
     
+    // generate a new ball after a goal
     func replaceBall() {
         self.ball?.destroy()
         self.ball = Ball()
         self.addChild(self.ball!)
     }
     
-    /*
-    func keeperCatched( _ node: SKNode) {
-        //print("catched \(node.name)")
-        if (node.name == "ball") {
-            keeperCatchedBall()
-        }
-    }*/
-    
     func keeperCatchedBall() {
         print("Gotcha!")
-        let diffX = (self.goalKeeper?.position.x)! - (ball?.frame.origin.x)! - (ball?.frame.size.width)!/2
-        // let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
         ball?.pushDown((self.goalKeeper?.position)!)
-        //ball?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
     }
     
     override func update(_ currentTime: TimeInterval) {
