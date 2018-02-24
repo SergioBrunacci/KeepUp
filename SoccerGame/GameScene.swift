@@ -9,7 +9,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    private var ball : SKLabelNode?
+    private var ball : Ball?
     private var score : Int = 0
     private var goalKeeper : GoalKeeper?
     private var goal : Goal?
@@ -18,21 +18,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         screenWidth = frame.width
         screenHeight = frame.height
         
-        self.ball = self.childNode(withName: "ball") as? SKLabelNode
-        if let ball = self.ball {
-            ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.fontSize/2)
-            ball.physicsBody?.contactTestBitMask=1
-        }
-        self.ball?.zPosition = 2
+        self.ball = Ball()
+        self.addChild(self.ball!)
         
         self.physicsWorld.contactDelegate = self
         // Get label node from scene and store it for use later
         self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
         if let label = self.label {
             
-            label.text = "Kick the Ball!"
+            label.text = "Hit the Ball!"
             label.run(SKAction.fadeOut(withDuration: 3.0))
         }
+        
         
         // Create shape node to use during mouse interaction
         let w = (self.size.width + self.size.height) * 0.05
@@ -80,18 +77,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if let ball = self.ball {
+        
+        
+        //if let ball = self.ball {
             for t in touches {
                 let location  = t.location(in: self)
-
-                if ball.contains(location) {
-                    score += 1
-                    let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
-                    print(diffX)
-                    ball.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: 1000))
+                if (self.ball?.ballHit(location))! {
+                    // score += 1
                 }
             }
-        }
+        //}
         
         /*
         if let label = self.label {
@@ -117,11 +112,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         if (contact.bodyA.node?.name == "ball") {
-            ballHit(contact.bodyB.node!)
+            self.ballHit(contact.bodyB.node!)
         }
         
         if (contact.bodyB.node?.name == "ball") {
-            ballHit(contact.bodyA.node!)
+            self.ballHit(contact.bodyA.node!)
         }
     }
     
@@ -147,6 +142,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Goal!")
         label?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         label?.text = "GOAL!"
+        
+        self.ball?.position = CGPoint(x: 500.0, y: 400.0 )
     }
     
     func keeperCatched( _ node: SKNode) {
@@ -160,6 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("Gotcha!")
         let diffX = (self.goalKeeper?.position.x)! - (ball?.frame.origin.x)! - (ball?.frame.size.width)!/2
         // let diffX = location.x - ball.frame.origin.x - ball.frame.size.width/2
+        ball?.pushDown((self.goalKeeper?.position)!)
         ball?.physicsBody?.applyImpulse(CGVector(dx: -5 * diffX, dy: -1000))
         //ball?.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
     }
