@@ -5,9 +5,9 @@ class Goal : SKLabelNode {
     override init() {
         super.init()
         self.name = "goal"
-        self.text = "HERE"
-        self.color = SKColor.red
-        self.alpha = 1.0
+        self.text = ""
+        //self.color = SKColor.red
+        self.alpha = 0.0
         self.position = goalCenter()
         
         setPhysics()
